@@ -1,9 +1,24 @@
-import { createFileRoute } from '@tanstack/react-router';
+import { createFileRoute, redirect } from '@tanstack/react-router';
+
+import { isAuthenticated } from '@/utils/auth';
 
 export const Route = createFileRoute('/_layout/')({
+  beforeLoad: () => {
+    if (!isAuthenticated()) {
+      throw redirect({
+        to: '/auth/login',
+        from: '/users',
+      });
+    }
+  },
   component: RouteComponent,
 });
 
 function RouteComponent() {
-  return <div>Hello /_layout/!</div>;
+  return (
+    <img
+      className="max-h-screen min-h-screen object-center"
+      src="/zelensky.jpg"
+    />
+  );
 }

@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import type { QueryClient } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { createRootRouteWithContext, Outlet } from '@tanstack/react-router';
@@ -12,10 +13,11 @@ export const Route = createRootRouteWithContext<RouterContext>()({
     return (
       <>
         <Outlet />
+        <Toaster />
 
         {import.meta.env.MODE === 'development' && (
           <>
-            <TanStackRouterDevtools />
+            <TanStackRouterDevtools position="top-right" />
             <ReactQueryDevtools />
           </>
         )}

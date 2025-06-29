@@ -12,6 +12,8 @@ import { Route as rootRouteImport } from './../../src/routes/__root'
 import { Route as LayoutRouteImport } from './../../src/routes/_layout'
 import { Route as LayoutIndexRouteImport } from './../../src/routes/_layout/index'
 import { Route as LayoutUsersIndexRouteImport } from './../../src/routes/_layout/users/index'
+import { Route as LayoutSecretIndexRouteImport } from './../../src/routes/_layout/secret/index'
+import { Route as LayoutAuthLoginRouteImport } from './../../src/routes/_layout/auth/login'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
@@ -27,28 +29,50 @@ const LayoutUsersIndexRoute = LayoutUsersIndexRouteImport.update({
   path: '/users/',
   getParentRoute: () => LayoutRoute,
 } as any)
+const LayoutSecretIndexRoute = LayoutSecretIndexRouteImport.update({
+  id: '/secret/',
+  path: '/secret/',
+  getParentRoute: () => LayoutRoute,
+} as any)
+const LayoutAuthLoginRoute = LayoutAuthLoginRouteImport.update({
+  id: '/auth/login',
+  path: '/auth/login',
+  getParentRoute: () => LayoutRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '': typeof LayoutRouteWithChildren
   '/': typeof LayoutIndexRoute
+  '/auth/login': typeof LayoutAuthLoginRoute
+  '/secret': typeof LayoutSecretIndexRoute
   '/users': typeof LayoutUsersIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof LayoutIndexRoute
+  '/auth/login': typeof LayoutAuthLoginRoute
+  '/secret': typeof LayoutSecretIndexRoute
   '/users': typeof LayoutUsersIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/_layout': typeof LayoutRouteWithChildren
   '/_layout/': typeof LayoutIndexRoute
+  '/_layout/auth/login': typeof LayoutAuthLoginRoute
+  '/_layout/secret/': typeof LayoutSecretIndexRoute
   '/_layout/users/': typeof LayoutUsersIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/users'
+  fullPaths: '' | '/' | '/auth/login' | '/secret' | '/users'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/users'
-  id: '__root__' | '/_layout' | '/_layout/' | '/_layout/users/'
+  to: '/' | '/auth/login' | '/secret' | '/users'
+  id:
+    | '__root__'
+    | '/_layout'
+    | '/_layout/'
+    | '/_layout/auth/login'
+    | '/_layout/secret/'
+    | '/_layout/users/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -78,16 +102,34 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LayoutUsersIndexRouteImport
       parentRoute: typeof LayoutRoute
     }
+    '/_layout/secret/': {
+      id: '/_layout/secret/'
+      path: '/secret'
+      fullPath: '/secret'
+      preLoaderRoute: typeof LayoutSecretIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
+    '/_layout/auth/login': {
+      id: '/_layout/auth/login'
+      path: '/auth/login'
+      fullPath: '/auth/login'
+      preLoaderRoute: typeof LayoutAuthLoginRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
   LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutAuthLoginRoute: typeof LayoutAuthLoginRoute
+  LayoutSecretIndexRoute: typeof LayoutSecretIndexRoute
   LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRoute: LayoutIndexRoute,
+  LayoutAuthLoginRoute: LayoutAuthLoginRoute,
+  LayoutSecretIndexRoute: LayoutSecretIndexRoute,
   LayoutUsersIndexRoute: LayoutUsersIndexRoute,
 }
 

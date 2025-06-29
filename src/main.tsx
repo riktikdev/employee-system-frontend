@@ -7,7 +7,15 @@ import { routeTree } from '../generated/router';
 
 import './assets/styles/tailwind.css';
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      refetchOnMount: 'always',
+      retry: false,
+    },
+  },
+});
 
 // Create a new router instance
 const router = createRouter({
