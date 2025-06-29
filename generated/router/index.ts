@@ -8,95 +8,95 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './../../src/routes/__root';
-import { Route as LayoutRouteImport } from './../../src/routes/_layout';
-import { Route as LayoutIndexRouteImport } from './../../src/routes/_layout/index';
-import { Route as LayoutUsersIndexRouteImport } from './../../src/routes/_layout/users/index';
+import { Route as rootRouteImport } from './../../src/routes/__root'
+import { Route as LayoutRouteImport } from './../../src/routes/_layout'
+import { Route as LayoutIndexRouteImport } from './../../src/routes/_layout/index'
+import { Route as LayoutUsersIndexRouteImport } from './../../src/routes/_layout/users/index'
 
 const LayoutRoute = LayoutRouteImport.update({
   id: '/_layout',
   getParentRoute: () => rootRouteImport,
-} as any);
+} as any)
 const LayoutIndexRoute = LayoutIndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => LayoutRoute,
-} as any);
+} as any)
 const LayoutUsersIndexRoute = LayoutUsersIndexRouteImport.update({
   id: '/users/',
   path: '/users/',
   getParentRoute: () => LayoutRoute,
-} as any);
+} as any)
 
 export interface FileRoutesByFullPath {
-  '': typeof LayoutRouteWithChildren;
-  '/': typeof LayoutIndexRoute;
-  '/users': typeof LayoutUsersIndexRoute;
+  '': typeof LayoutRouteWithChildren
+  '/': typeof LayoutIndexRoute
+  '/users': typeof LayoutUsersIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof LayoutIndexRoute;
-  '/users': typeof LayoutUsersIndexRoute;
+  '/': typeof LayoutIndexRoute
+  '/users': typeof LayoutUsersIndexRoute
 }
 export interface FileRoutesById {
-  '__root__': typeof rootRouteImport;
-  '/_layout': typeof LayoutRouteWithChildren;
-  '/_layout/': typeof LayoutIndexRoute;
-  '/_layout/users/': typeof LayoutUsersIndexRoute;
+  __root__: typeof rootRouteImport
+  '/_layout': typeof LayoutRouteWithChildren
+  '/_layout/': typeof LayoutIndexRoute
+  '/_layout/users/': typeof LayoutUsersIndexRoute
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: '' | '/' | '/users';
-  fileRoutesByTo: FileRoutesByTo;
-  to: '/' | '/users';
-  id: '__root__' | '/_layout' | '/_layout/' | '/_layout/users/';
-  fileRoutesById: FileRoutesById;
+  fileRoutesByFullPath: FileRoutesByFullPath
+  fullPaths: '' | '/' | '/users'
+  fileRoutesByTo: FileRoutesByTo
+  to: '/' | '/users'
+  id: '__root__' | '/_layout' | '/_layout/' | '/_layout/users/'
+  fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  LayoutRoute: typeof LayoutRouteWithChildren;
+  LayoutRoute: typeof LayoutRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/_layout': {
-      id: '/_layout';
-      path: '';
-      fullPath: '';
-      preLoaderRoute: typeof LayoutRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
+      id: '/_layout'
+      path: ''
+      fullPath: ''
+      preLoaderRoute: typeof LayoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_layout/': {
-      id: '/_layout/';
-      path: '/';
-      fullPath: '/';
-      preLoaderRoute: typeof LayoutIndexRouteImport;
-      parentRoute: typeof LayoutRoute;
-    };
+      id: '/_layout/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof LayoutIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
     '/_layout/users/': {
-      id: '/_layout/users/';
-      path: '/users';
-      fullPath: '/users';
-      preLoaderRoute: typeof LayoutUsersIndexRouteImport;
-      parentRoute: typeof LayoutRoute;
-    };
+      id: '/_layout/users/'
+      path: '/users'
+      fullPath: '/users'
+      preLoaderRoute: typeof LayoutUsersIndexRouteImport
+      parentRoute: typeof LayoutRoute
+    }
   }
 }
 
 interface LayoutRouteChildren {
-  LayoutIndexRoute: typeof LayoutIndexRoute;
-  LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute;
+  LayoutIndexRoute: typeof LayoutIndexRoute
+  LayoutUsersIndexRoute: typeof LayoutUsersIndexRoute
 }
 
 const LayoutRouteChildren: LayoutRouteChildren = {
   LayoutIndexRoute: LayoutIndexRoute,
   LayoutUsersIndexRoute: LayoutUsersIndexRoute,
-};
+}
 
 const LayoutRouteWithChildren =
-  LayoutRoute._addFileChildren(LayoutRouteChildren);
+  LayoutRoute._addFileChildren(LayoutRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   LayoutRoute: LayoutRouteWithChildren,
-};
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>();
+  ._addFileTypes<FileRouteTypes>()
